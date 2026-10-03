@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>For Iqra ❤️ | Birthday Surprise</title>
+<style>
+:root{
+ --red:#b91435;--pink:#ffe7ed;--deep:#8e102b;--ink:#551326;
+ --shadow:0 18px 45px rgba(78,8,25,.24)
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+ font-family:Arial,"Segoe UI",sans-serif;color:var(--ink);
+ background:linear-gradient(180deg,#d71943 0%,#ef3157 48%,#ff7a8e 100%);
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:
+ radial-gradient(circle at 10% 12%,#ffffff44 0 2px,transparent 3px),
+ radial-gradient(circle at 78% 18%,#ffffff55 0 2px,transparent 3px),
+ radial-gradient(circle at 35% 70%,#ffd9e944 0 2px,transparent 3px),
+ radial-gradient(circle at 92% 82%,#fff6 0 2px,transparent 3px);
+ background-size:90px 90px,130px 130px,160px 160px,110px 110px;
+ animation:bgMove 12s linear infinite;z-index:0
+}
+@keyframes bgMove{to{background-position:90px 130px,-130px 100px,160px -120px,-110px 90px}}
+.screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;z-index:2}
+.screen.active{display:flex;animation:screenIn .55s ease}
+@keyframes screenIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.card{
+ width:min(94vw,590px);max-height:92vh;overflow:auto;text-align:center;
+ background:rgba(255,246,249,.96);border:2px solid #fff7;border-radius:25px;
+ padding:28px 20px;box-shadow:var(--shadow);position:relative
+}
+.card::-webkit-scrollbar{width:0}
+h1{font-size:clamp(30px,8vw,48px);margin:8px 0;color:var(--red)}
+h2{font-size:clamp(25px,6vw,35px);margin:8px 0;color:var(--red)}
+.sub{font-size:16px;color:#67303f;margin:8px 0 20px}
+.emoji{font-size:70px;animation:float 1.8s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-9px) rotate(2deg)}}
+.btn{
+ border:0;background:linear-gradient(180deg,#c82143,#9d0e2c);color:white;
+ padding:13px 25px;border-radius:25px;font-weight:700;font-size:16px;
+ box-shadow:0 8px 18px #8c0e2b44;cursor:pointer;transition:.2s
+}
+.btn:hover{transform:translateY(-2px) scale(1.03)}
+.pill{display:inline-block;background:#fff;border:1px solid #e5b8c3;border-radius:30px;padding:8px 15px;font-size:13px}
+.heartFloat{position:fixed;bottom:-40px;font-size:25px;z-index:1;animation:rise 7s linear infinite;opacity:.8}
+@keyframes rise{to{transform:translateY(-115vh) rotate(20deg);opacity:0}}
+.choiceRow{display:flex;justify-content:space-around;gap:15px;margin:24px auto;direction:ltr}
+.choice{width:44%;padding:14px;border-radius:24px;border:2px solid #e2a9b6;background:#fff;color:var(--red);font-weight:bold;cursor:pointer}
+.choice.primary{background:var(--red);color:#fff}
+.count{font-size:80px;font-weight:900;color:var(--red);animation:pop .7s ease}
+@keyframes pop{0%{transform:scale(.3);opacity:0}80%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+/* Puzzle */
+.puzzle{width:min(82vw,360px);aspect-ratio:1;margin:18px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;border:3px solid var(--red);padding:4px;background:#fff}
+.piece{background:#d92348;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:bold;cursor:pointer;min-height:70px}
+.piece.good{background:#fff1f4;color:var(--red)}
+.hint{font-size:13px;color:#7c4352}
+
+/* Memories */
+.memories{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.memory{height:110px;perspective:700px;cursor:pointer}
+.memoryInner{height:100%;position:relative;transition:.6s;transform-style:preserve-3d}
+.memory.flipped .memoryInner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;display:flex;align-items:center;justify-content:center;padding:10px}
+.front{background:#d92147;color:#fff;font-size:28px}
+.back{background:#fff;border:2px dashed #d33;color:#8a1934;transform:rotateY(180deg);font-size:14px}
+
+/* Stats */
+.stats{text-align:left;background:#fff;border-radius:17px;padding:15px;margin:15px 0}
+.stat{display:flex;justify-content:space-between;padding:10px 4px;border-bottom:1px solid #f0cdd5}
+.stat:last-child{border:0}.stat b{color:var(--red)}
+
+/* Balloon */
+.balloonArea{height:240px;position:relative;margin:10px 0;background:#fff1f5;border-radius:18px;overflow:hidden}
+.balloon{position:absolute;font-size:65px;cursor:pointer;transition:.2s;animation:balloonBob 2s ease-in-out infinite}
+.balloon:hover{transform:scale(1.12)}
+@keyframes balloonBob{50%{translate:0 -10px}}
+
+/* Letter */
+.envelope{font-size:100px;cursor:pointer;animation:float 1.7s infinite}
+.letter{display:none;background:#fff;border:2px solid #e1aab7;border-radius:12px;padding:18px;text-align:left;line-height:1.65}
+.letter.show{display:block;animation:screenIn .5s ease}
+
+/* Wish */
+.candles{display:flex;justify-content:center;gap:20px;margin:15px 0}
+.candle{font-size:45px;cursor:pointer;filter:grayscale(0)}
+.candle.off{filter:grayscale(1);opacity:.45}
+.cake{font-size:100px;animation:float 1.8s infinite}
+
+/* Final */
+.finalCard{background:rgba(255,247,249,.98)}
+.finalTitle{font-size:clamp(31px,8vw,48px);color:var(--red);margin:4px}
+.finalFrom{font-size:23px;color:#7e1830;font-weight:bold}
+.finalText{font-size:16px;line-height:1.7;color:#562635}
+.urdu{font-size:19px;line-height:2;color:#7b1d36;background:#fff0f3;padding:13px;border-radius:15px;margin:15px 0}
+.confetti{position:fixed;top:-30px;z-index:20;font-size:22px;pointer-events:none}
+</style>
+</head>
+<body>
+
+<script>
+for(let i=0;i<18;i++){
+ const h=document.createElement('div');h.className='heartFloat';h.textContent=['❤️','💕','💗','💖','✨'][i%5];
+ h.style.left=(Math.random()*100)+'%';h.style.animationDelay=(Math.random()*7)+'s';
+ h.style.fontSize=(16+Math.random()*18)+'px';document.body.appendChild(h);
+}
+</script>
+
+<!-- 1 -->
+<section class="screen active" id="s1"><div class="card">
+ <div class="emoji">🧸💗</div>
+ <h1>Hey Iqra ❤️</h1>
+ <p class="sub">I made something special just for you...</p>
+ <div class="pill">15 October 2026 • Your Special Day</div><br><br>
+ <button class="btn" onclick="next(2)">Open Your Surprise 🎁</button>
+</div></section>
+
+<!-- 2 -->
+<section class="screen" id="s2"><div class="card">
+ <div class="emoji">🥰</div>
+ <h1>Not an option! 💕</h1>
+ <p class="sub">Because you're one of my favorite people in the whole world.</p>
+ <p>There are some surprises waiting for you...</p><br>
+ <button class="btn" onclick="next(3)">Only for Iqra ❤️</button>
+</div></section>
+
+<!-- 3 -->
+<section class="screen" id="s3"><div class="card">
+ <div class="emoji">🎀</div><p class="sub">Get ready...</p><div class="count" id="count">3</div>
+</div></section>
+
+<!-- 4 -->
+<section class="screen" id="s4"><div class="card">
+ <div class="emoji">💗</div><h1>LOVE ❤️</h1>
+ <p class="sub">A little journey made with lots of love, just for you.</p>
+ <button class="btn" onclick="next(5)">Continue →</button>
+</div></section>
+
+<!-- 5 -->
+<section class="screen" id="s5"><div class="card">
+ <h2>🧩 Rebuild the Picture</h2>
+ <p class="sub">Tap two pieces to swap them until the picture is complete.</p>
+ <div class="puzzle" id="puzzle"></div>
+ <p class="hint">Make the center say “HAPPY BIRTHDAY” ❤️</p>
+ <button class="btn" onclick="solvePuzzle()">Reveal Picture →</button>
+</div></section>
+
+<!-- 6 -->
+<section class="screen" id="s6"><div class="card">
+ <h2>🖍️ Scratch to Reveal!</h2>
+ <p class="sub">Use your finger/mouse to reveal the message below.</p>
+ <canvas id="scratch" width="500" height="180" style="max-width:100%;border-radius:14px;background:#b51a3c;touch-action:none"></canvas>
+ <br><br><button class="btn" onclick="next(7)">Continue →</button>
+</div></section>
+
+<!-- 7 -->
+<section class="screen" id="s7"><div class="card">
+ <h2>📸 Our Memories</h2><p class="sub">Tap a card to flip it</p>
+ <div class="memories">
+  <div class="memory" onclick="this.classList.toggle('flipped')"><div class="memoryInner"><div class="face front">❤️</div><div class="face back">Every little moment becomes a beautiful memory.</div></div></div>
+  <div class="memory" onclick="this.classList.toggle('flipped')"><div class="memoryInner"><div class="face front">🌸</div><div class="face back">Your smile can make an ordinary day feel special.</div></div></div>
+  <div class="memory" onclick="this.classList.toggle('flipped')"><div class="memoryInner"><div class="face front">✨</div><div class="face back">Some people just make life brighter.</div></div></div>
+  <div class="memory" onclick="this.classList.toggle('flipped')"><div class="memoryInner"><div class="face front">💕</div><div class="face back">And you're definitely one of them, Iqra.</div></div></div>
+ </div>
+ <button class="btn" onclick="next(8)">Continue →</button>
+</div></section>
+
+<!-- 8 -->
+<section class="screen" id="s8"><div class="card">
+ <h2>📊 Our Year, Wrapped</h2>
+ <div class="stats">
+  <div class="stat"><span>💌 Smiles shared</span><b>∞</b></div>
+  <div class="stat"><span>😂 Random laughs</span><b>999+</b></div>
+  <div class="stat"><span>✨ Beautiful moments</span><b>Countless</b></div>
+  <div class="stat"><span>❤️ Reasons you're special</span><b>Too many</b></div>
+ </div>
+ <p class="sub">And honestly... I'd choose this friendship again and again. 🥹</p>
+ <button class="btn" onclick="next(9)">Continue →</button>
+</div></section>
+
+<!-- 9 -->
+<section class="screen" id="s9"><div class="card">
+ <h2>🎈 Pop a Balloon</h2><p class="sub">Tap the balloon for a little message</p>
+ <div class="balloonArea" id="balloonArea">
+  <div class="balloon" style="left:16%;top:55px" onclick="popBalloon(this)">🎈</div>
+  <div class="balloon" style="left:45%;top:100px;animation-delay:.5s" onclick="popBalloon(this)">🎈</div>
+  <div class="balloon" style="left:72%;top:45px;animation-delay:1s" onclick="popBalloon(this)">🎈</div>
+ </div>
+ <div id="balloonMsg" style="font-weight:bold;color:var(--red);min-height:22px"></div>
+ <br><button class="btn" onclick="next(10)">Continue →</button>
+</div></section>
+
+<!-- 10 -->
+<section class="screen" id="s10"><div class="card">
+ <h2>💌 A Little Letter</h2><p class="sub">Tap the envelope to open it</p>
+ <div class="envelope" onclick="document.getElementById('letter').classList.add('show')">💌</div>
+ <div class="letter" id="letter">
+  <b>Dear Iqra,</b><br><br>
+  I'm really glad you exist. Having a best friend like you makes ordinary moments feel special.
+  I hope every year ahead gives you more reasons to smile, more dreams to chase, and more beautiful memories to keep.
+  <br><br><b>With lots of love and best wishes ❤️</b>
+ </div><br><button class="btn" onclick="next(11)">Continue →</button>
+</div></section>
+
+<!-- 11 -->
+<section class="screen" id="s11"><div class="card">
+ <h2>🧁 Make a Wish</h2><p class="sub">Tap each candle to blow it out</p>
+ <div class="candles">
+  <div class="candle" onclick="this.classList.toggle('off')">🕯️</div>
+  <div class="candle" onclick="this.classList.toggle('off')">🕯️</div>
+  <div class="candle" onclick="this.classList.toggle('off')">🕯️</div>
+ </div>
+ <div class="cake">🎂</div>
+ <p>Close your eyes and make a wish 🤍</p>
+ <button class="btn" onclick="celebrate();next(12)">My Wish →</button>
+</div></section>
+
+<!-- 12 -->
+<section class="screen" id="s12"><div class="card finalCard">
+ <div class="emoji">🎂💗</div>
+ <div class="finalTitle">Happy Birthday, My Love! ❤️</div>
+ <div class="finalFrom">15 October 2026 — From Mirza</div>
+ <p class="finalText">
+ Every day with you feels more special. Today, more than any other day, is a little celebration of you.
+ I hope you know just how precious you are and how much happiness you bring into the lives around you.
+ </p>
+ <div class="urdu">
+  تمہاری مسکراہٹ ہمیشہ یونہی روشن رہے،<br>
+  تمہاری زندگی خوشیوں سے بھری رہے۔ 🌸<br>
+  دعا ہے ہر خواب تمہارا حقیقت بنے،<br>
+  اور ہر آنے والا دن پہلے سے خوبصورت ہو۔ ✨
+ </div>
+ <div class="love" style="font-size:26px;color:var(--red);font-weight:900">
+   I love you so much, Iqra ❤️<br>
+   from Mirza
+ </div>
+</div></section>
+
+<script>
+function next(n){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ document.getElementById('s'+n).classList.add('active');
+ if(n===3) countdown();
+}
+let counting=false;
+function countdown(){
+ if(counting)return;counting=true;let n=3,el=document.getElementById('count');
+ const timer=setInterval(()=>{n--;if(n<=0){clearInterval(timer);counting=false;next(4)}else el.textContent=n},900)
+}
+
+/* puzzle */
+let pieces=['A','B','C','D','E','F','G','H','I'],selected=-1;
+function drawPuzzle(){
+ const box=document.getElementById('puzzle');box.innerHTML='';
+ pieces.forEach((v,i)=>{
+  const d=document.createElement('div');d.className='piece'+(v==='E'?' good':'');
+  d.textContent=v==='E'?'HAPPY\\nBIRTHDAY':v;
+  d.style.whiteSpace='pre-line';
+  d.onclick=()=>{if(selected<0){selected=i;d.style.outline='4px solid #ff7a99'}else{
+   [pieces[selected],pieces[i]]=[pieces[i],pieces[selected]];selected=-1;drawPuzzle()
+  }};
+  box.appendChild(d)
+ })
+}
+function solvePuzzle(){pieces=['A','B','C','D','E','F','G','H','I'];drawPuzzle();setTimeout(()=>next(6),500)}
+drawPuzzle();
+
+/* scratch canvas */
+const canvas=document.getElementById('scratch'),ctx=canvas.getContext('2d');
+function initScratch(){
+ ctx.fillStyle='#b51a3c';ctx.fillRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle='#fff';ctx.font='bold 24px Arial';ctx.textAlign='center';
+ ctx.fillText('You are the best thing that',250,75);ctx.fillText('happened to me this year ❤️',250,115);
+ ctx.globalCompositeOperation='source-over';
+}
+initScratch();
+let scratching=false;
+function scratch(e){
+ if(!scratching)return;let r=canvas.getBoundingClientRect(),x=(e.clientX-r.left)*canvas.width/r.width,y=(e.clientY-r.top)*canvas.height/r.height;
+ ctx.globalCompositeOperation='destination-out';ctx.beginPath();ctx.arc(x,y,24,0,Math.PI*2);ctx.fill()
+}
+canvas.addEventListener('pointerdown',e=>{scratching=true;scratch(e)});
+canvas.addEventListener('pointermove',scratch);canvas.addEventListener('pointerup',()=>scratching=false);canvas.addEventListener('pointerleave',()=>scratching=false);
+
+function popBalloon(el){el.remove();document.getElementById('balloonMsg').textContent='You make my life brighter. 💕';}
+function celebrate(){
+ for(let i=0;i<55;i++){
+  let x=document.createElement('div');x.className='confetti';x.textContent=['❤️','💕','✨','🎉','🌸'][i%5];
+  x.style.left=(Math.random()*100)+'vw';document.body.appendChild(x);
+  x.animate([{transform:'translateY(0) rotate(0)',opacity:1},{transform:`translate(${(Math.random()-.5)*180}px,105vh) rotate(500deg)`,opacity:0}],{duration:1800+Math.random()*1400});
+  setTimeout(()=>x.remove(),3300)
+ }
+}
+</script>
+</body>
+</html>
